@@ -6,12 +6,28 @@ from datetime import datetime
 class Player(BaseModel):
     id: int
     name: str
-    position: str
-    goals: int
-    assists: int
-    yellow_cards: int
-    red_cards: int
+    position: str  # "batsman", "bowler", "all-rounder", "wicket-keeper"
+
+    # Batting statistics
+    runs_scored: int
+    highest_score: int
+    batting_average: float
+    strike_rate: float
+    fifties: int
+    hundreds: int
+    ducks: int
+    not_outs: int
+
+    # Bowling statistics
+    wickets_taken: int
+    bowling_average: float
+    economy_rate: float
+    best_bowling_figures: str  # e.g., "5/23"
+
+    # General statistics
     matches_played: int
+    catches: int
+    stumpings: int  # for wicket-keepers
 
 
 class Team(BaseModel):
@@ -21,8 +37,9 @@ class Team(BaseModel):
     wins: int
     losses: int
     draws: int
-    goals_for: int
-    goals_against: int
+    no_results: int  # rain/weather cancellations
+    runs_scored: int
+    runs_conceded: int
     players: List[Player]
 
 
@@ -31,9 +48,11 @@ class Match(BaseModel):
     home_team_id: int
     away_team_id: int
     date: datetime
-    home_score: Optional[int] = None
-    away_score: Optional[int] = None
-    status: str  # "upcoming", "completed"
+    home_score: Optional[str] = None  # e.g., "280/8 (50 overs)"
+    away_score: Optional[str] = None  # e.g., "245 all out (48.3 overs)"
+    match_format: str  # "Test", "ODI", "T20"
+    venue: str
+    status: str  # "upcoming", "in_progress", "completed", "abandoned"
 
 
 class MatchAnalysis(BaseModel):
