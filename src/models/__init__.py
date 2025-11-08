@@ -1,1 +1,3 @@
-# Empty file to make models a package
+from .models import MatchAnalysis, Team, Player, Match
+
+__all__ = ["MatchAnalysis", "Team", "Player", "Match"]
